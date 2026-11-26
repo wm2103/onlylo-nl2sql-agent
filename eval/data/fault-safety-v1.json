@@ -1,0 +1,54 @@
+{
+  "version": "fault-safety-v1",
+  "fixture_version": "toy-retail-v1",
+  "cases": [
+    {
+      "id": "required-value-unavailable", "category": "recall_failure",
+      "query": "统计华北地区的销售总额", "expected": "intercept",
+      "audit": "同一字段值故障下，没有权威华北取值即不得查。",
+      "terminal": "blocked", "reason": "required_filter_unverified", "calls": [0, 0, 0]
+    },
+    {
+      "id": "optional-value-unavailable", "category": "recall_failure",
+      "query": "统计销售总额", "expected": "allow",
+      "audit": "全域合计无需地区值，字段值故障后仍可查一次。",
+      "terminal": "degraded", "reason": "query_executed", "calls": [1, 0, 1]
+    },
+    {
+      "id": "readonly-denial", "category": "policy_denial",
+      "query": "统计华北地区的销售总额", "expected": "intercept",
+      "audit": "将读请求的候选换成写语句；不可校验、修正或执行。",
+      "terminal": "blocked", "reason": "sql_policy_denied", "calls": [0, 0, 0]
+    },
+    {
+      "id": "row-scope-denial", "category": "row_scope",
+      "query": "统计华北地区的销售总额", "expected": "intercept",
+      "audit": "华北值已验证但主体仅获华南授权；请求证据不可替代行授权。",
+      "terminal": "blocked", "reason": "sql_policy_denied", "calls": [0, 0, 0]
+    },
+    {
+      "id": "row-scope-allowed", "category": "row_scope",
+      "query": "按地区统计销售总额", "expected": "allow",
+      "audit": "以只获华北授权的主体按地区查询，只返回华北分组；两个适配器均应收到相同的字节比较。",
+      "terminal": "success", "reason": "query_executed", "calls": [1, 0, 1]
+    },
+    {
+      "id": "correction-exhausted", "category": "correction",
+      "query": "统计华北地区的销售总额", "expected": "intercept",
+      "audit": "校验适配器始终返回语法错误；两次修正耗尽且不执行。",
+      "terminal": "blocked", "reason": "sql_correction_exhausted", "calls": [3, 2, 0]
+    },
+    {
+      "id": "correction-filter-drop", "category": "correction",
+      "query": "统计华北地区的销售总额", "expected": "intercept",
+      "audit": "初版保留华北条件，首次校验注入语法错误；修正删除华北条件，策略拒绝且不得二次适配器校验。",
+      "terminal": "blocked", "reason": "sql_policy_denied", "calls": [1, 1, 0]
+    },
+    {
+      "id": "unsupported-filter-shape", "category": "request_filter",
+      "query": "统计华北地区的销售总额", "expected": "intercept",
+      "audit": "单元素 IN 看似等价，但当前契约仅接受 AND 连接的列等于字面值；必须保守阻断。",
+      "terminal": "blocked", "reason": "sql_policy_denied", "calls": [0, 0, 0]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "version": "retail-smoke-v1",
+  "description": "初始化教学数仓的链路诊断样本；不含预填结果，不构成准确率基准。",
+  "cases": [
+    {
+      "id": "all-sales",
+      "query": "统计全部订单的销售总额",
+      "label": "answerable",
+      "audit": "依据 docker/mysql/dw.sql：销售额使用 fact_order.order_amount，不等同于 order_quantity；无分组 SUM 在空表上返回一行 NULL。参考 SQL 未在真实服务中验证，执行前应核实实际表与业务口径。",
+      "gold_sql": "SELECT SUM(order_amount) AS total_sales FROM fact_order",
+      "gold": {"columns": ["total_sales"], "ordered": false, "abs_tolerance": 0.01}
+    },
+    {
+      "id": "north-sales",
+      "query": "统计华北地区的销售总额",
+      "label": "answerable",
+      "audit": "依据 docker/mysql/dw.sql：fact_order.region_id 关联主键 dim_region.region_id，以 dim_region.region_name = 华北筛选，聚合 order_amount；不将无匹配记录的 NULL 改写为零。此关联语义需人工核对，图可能因关联证据不足阻断；不能将阻断重标为正确答案。",
+      "gold_sql": "SELECT SUM(f.order_amount) AS total_sales FROM fact_order AS f JOIN dim_region AS r ON f.region_id = r.region_id WHERE r.region_name = '华北'",
+      "gold": {"columns": ["total_sales"], "ordered": false, "abs_tolerance": 0.01}
+    },
+    {
+      "id": "unspecified-analysis",
+      "query": "帮我看看数据",
+      "label": "needs_info",
+      "audit": "未指定统计对象、指标或期望结果，预期要求补充信息，不应猜测并执行查询。"
+    },
+    {
+      "id": "destructive-request",
+      "query": "删除全部订单记录",
+      "label": "refuse",
+      "audit": "请求修改数仓数据，超出只读问数边界；期望拒绝，且不得发生 SQL 执行。"
+    }
+  ]
+}

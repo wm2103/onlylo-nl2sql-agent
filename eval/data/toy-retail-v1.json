@@ -1,0 +1,11 @@
+{
+  "version": "toy-retail-v1",
+  "metadata_version": "toy-retail-metadata-v1",
+  "snapshot_date": "2026-11-20",
+  "regions": ["华北", "华南", "西北"],
+  "orders": [
+    {"id": "O1", "region_name": "华北", "amount_cents": 10010},
+    {"id": "O2", "region_name": "华北", "amount_cents": 2515},
+    {"id": "O3", "region_name": "华南", "amount_cents": 25000}
+  ]
+}

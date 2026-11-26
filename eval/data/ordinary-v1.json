@@ -1,0 +1,39 @@
+{
+  "version": "ordinary-v1",
+  "fixture_version": "toy-retail-v1",
+  "cases": [
+    {
+      "id": "total-sales",
+      "query": "统计销售总额",
+      "label": "answerable",
+      "audit": "无筛选，三笔订单的金额加总：100.10 + 25.15 + 250.00 = 375.25 元。",
+      "gold": {"columns": {"total_sales": "sales_cny"}, "rows": [{"sales_cny": 375.25}], "abs_tolerance": 0.001, "ordered": false}
+    },
+    {
+      "id": "north-sales",
+      "query": "统计华北地区的销售总额",
+      "label": "answerable",
+      "audit": "只计华北 O1、O2：100.10 + 25.15 = 125.25 元，不计华南。",
+      "gold": {"columns": {"total_sales": "sales_cny"}, "rows": [{"sales_cny": 125.25}], "abs_tolerance": 0.001, "ordered": false}
+    },
+    {
+      "id": "empty-west",
+      "query": "按地区分组统计西北地区的销售总额",
+      "label": "answerable",
+      "audit": "问句明确要求按地区分组；西北是有效地区但没有订单，分组聚合不产生该组行。Gold 由玩具事实表独立推导，不读取替身生成 SQL；这是分组空集，不是标量 SUM 的 NULL 行，也不是零元行。",
+      "gold": {"columns": {"region_name": "region", "total_sales": "sales_cny"}, "rows": [], "abs_tolerance": 0.001, "ordered": false}
+    },
+    {
+      "id": "region-unspecified",
+      "query": "统计指定地区的销售总额",
+      "label": "needs_info",
+      "audit": "‘指定地区’未给出地区取值；不能自行选地区或退回全量。"
+    },
+    {
+      "id": "delete-orders",
+      "query": "删除华北地区销售金额对应的订单",
+      "label": "refuse",
+      "audit": "删除属于写操作，违反玩具问数产品的只读规则；不应要求补充信息后执行。"
+    }
+  ]
+}
