@@ -1,188 +1,213 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="960" viewBox="0 0 1280 960">
-  <defs>
-    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
-    </marker>
-    <marker id="arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/>
-    </marker>
-    <marker id="arrow-slate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
-    </marker>
-    <style>
-      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #0f172a; }
-      .subtitle { font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #475569; }
-      .layer-title { font: 700 21px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #0f172a; }
-      .box-title { font: 700 17px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #111827; }
-      .box-text { font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #334155; }
-      .small { font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #475569; }
-      .hint { font: 700 13px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #0f766e; }
-      .layer { stroke-width: 3; rx: 22; }
-      .sub-layer { stroke-width: 2; rx: 18; stroke-dasharray: 6 6; }
-      .box { fill: #ffffff; stroke-width: 2; rx: 10; filter: drop-shadow(0 4px 7px rgba(15, 23, 42, 0.12)); }
-      .arrow-blue { stroke: #2563eb; stroke-width: 3; fill: none; marker-end: url(#arrow-blue); }
-      .arrow-green { stroke: #16a34a; stroke-width: 3; fill: none; marker-end: url(#arrow-green); }
-      .arrow-orange { stroke: #ea580c; stroke-width: 3; fill: none; marker-end: url(#arrow-orange); }
-      .arrow-slate { stroke: #475569; stroke-width: 2.5; fill: none; marker-end: url(#arrow-slate); }
-      .arrow-dash { stroke-dasharray: 8 7; }
-    </style>
-  </defs>
-
-  <rect width="1280" height="960" fill="#f8fafc"/>
-  <text x="640" y="42" text-anchor="middle" class="title">电商问数系统架构图</text>
-  <text x="640" y="70" text-anchor="middle" class="subtitle">两条主线：先构建元数据知识库，再用 LangGraph 串起 Jieba、Qdrant、Elasticsearch、MySQL、LLM 和 SSE 返回</text>
-
-  <!-- 用户交互层 -->
-  <rect x="24" y="94" width="1232" height="108" class="layer" fill="#dbeafe" stroke="#2563eb"/>
-  <text x="48" y="128" class="layer-title">用户交互层</text>
-  <rect x="292" y="122" width="230" height="56" class="box" stroke="#2563eb"/>
-  <text x="407" y="145" text-anchor="middle" class="box-title">React + Vite 前端</text>
-  <text x="407" y="166" text-anchor="middle" class="box-text">Tailwind CSS / SSE 消费</text>
-  <rect x="590" y="122" width="210" height="56" class="box" stroke="#2563eb"/>
-  <text x="695" y="145" text-anchor="middle" class="box-title">HTTP 查询请求</text>
-  <text x="695" y="166" text-anchor="middle" class="box-text">Fetch POST /api/query</text>
-  <rect x="868" y="122" width="250" height="56" class="box" stroke="#2563eb"/>
-  <text x="993" y="145" text-anchor="middle" class="box-title">SSE 流式展示</text>
-  <text x="993" y="166" text-anchor="middle" class="box-text">progress / result / error</text>
-
-  <!-- API layer -->
-  <rect x="24" y="224" width="1232" height="124" class="layer" fill="#ecfdf5" stroke="#16a34a"/>
-  <text x="48" y="258" class="layer-title">API 与服务编排层</text>
-  <rect x="78" y="282" width="210" height="50" class="box" stroke="#16a34a"/>
-  <text x="183" y="303" text-anchor="middle" class="box-title">main.py + lifespan</text>
-  <text x="183" y="322" text-anchor="middle" class="box-text">FastAPI lifespan</text>
-  <rect x="350" y="282" width="210" height="50" class="box" stroke="#16a34a"/>
-  <text x="455" y="303" text-anchor="middle" class="box-title">query_router.py</text>
-  <text x="455" y="322" text-anchor="middle" class="box-text">Pydantic + StreamingResponse</text>
-  <rect x="622" y="282" width="230" height="50" class="box" stroke="#16a34a"/>
-  <text x="737" y="303" text-anchor="middle" class="box-title">dependencies.py</text>
-  <text x="737" y="322" text-anchor="middle" class="box-text">Repository / Client 注入</text>
-  <rect x="914" y="282" width="230" height="50" class="box" stroke="#16a34a"/>
-  <text x="1029" y="303" text-anchor="middle" class="box-title">QueryService</text>
-  <text x="1029" y="322" text-anchor="middle" class="box-text">graph.astream -> SSE(data)</text>
-  <text x="48" y="360" class="small">工程追踪：ContextVar 注入 request_id，loguru 输出链路日志；FastAPI 依赖注入负责组装 Repository 与 Client</text>
-
-  <!-- Meta build layer -->
-  <rect x="24" y="370" width="1232" height="158" class="layer" fill="#fff7ed" stroke="#f97316"/>
-  <text x="48" y="404" class="layer-title">元数据知识库构建层</text>
-  <rect x="66" y="434" width="190" height="58" class="box" stroke="#f97316"/>
-  <text x="161" y="458" text-anchor="middle" class="box-title">教学数仓 MySQL</text>
-  <text x="161" y="480" text-anchor="middle" class="box-text">fact / dim 原始表</text>
-  <rect x="306" y="434" width="220" height="58" class="box" stroke="#f97316"/>
-  <text x="416" y="458" text-anchor="middle" class="box-title">meta_config.yaml</text>
-  <text x="416" y="480" text-anchor="middle" class="box-text">表字段 / 指标 / 同步配置</text>
-  <rect x="576" y="434" width="240" height="58" class="box" stroke="#f97316"/>
-  <text x="696" y="458" text-anchor="middle" class="box-title">MetaKnowledgeService</text>
-  <text x="696" y="480" text-anchor="middle" class="box-text">SQLAlchemy + Repository</text>
-  <rect x="866" y="418" width="160" height="42" class="box" stroke="#f97316"/>
-  <text x="946" y="437" text-anchor="middle" class="box-title">Meta MySQL</text>
-  <text x="946" y="454" text-anchor="middle" class="small">表/字段/指标</text>
-  <rect x="1046" y="418" width="160" height="42" class="box" stroke="#f97316"/>
-  <text x="1126" y="437" text-anchor="middle" class="box-title">Qdrant</text>
-  <text x="1126" y="454" text-anchor="middle" class="small">TEI/BGE 向量</text>
-  <rect x="956" y="474" width="190" height="42" class="box" stroke="#f97316"/>
-  <text x="1051" y="493" text-anchor="middle" class="box-title">Elasticsearch</text>
-  <text x="1051" y="510" text-anchor="middle" class="small">IK 分词 value_index</text>
-
-  <!-- Agent workflow layer -->
-  <rect x="24" y="552" width="1232" height="224" class="layer" fill="#f3e8ff" stroke="#9333ea"/>
-  <text x="48" y="586" class="layer-title">LangGraph 问数智能体层</text>
-  <rect x="60" y="622" width="150" height="54" class="box" stroke="#9333ea"/>
-  <text x="135" y="645" text-anchor="middle" class="box-title">extract_keywords</text>
-  <text x="135" y="664" text-anchor="middle" class="box-text">Jieba TF-IDF</text>
-  <rect x="256" y="604" width="160" height="48" class="box" stroke="#9333ea"/>
-  <text x="336" y="625" text-anchor="middle" class="box-title">recall_column</text>
-  <text x="336" y="643" text-anchor="middle" class="box-text">Qdrant + Embedding</text>
-  <rect x="256" y="664" width="160" height="48" class="box" stroke="#9333ea"/>
-  <text x="336" y="685" text-anchor="middle" class="box-title">recall_value</text>
-  <text x="336" y="703" text-anchor="middle" class="box-text">ES + IK 分词</text>
-  <rect x="256" y="724" width="160" height="48" class="box" stroke="#9333ea"/>
-  <text x="336" y="745" text-anchor="middle" class="box-title">recall_metric</text>
-  <text x="336" y="763" text-anchor="middle" class="box-text">Qdrant + 指标</text>
-  <rect x="470" y="650" width="170" height="54" class="box" stroke="#9333ea"/>
-  <text x="555" y="673" text-anchor="middle" class="box-title">merge_retrieved</text>
-  <text x="555" y="692" text-anchor="middle" class="box-text">合并召回信息</text>
-  <rect x="694" y="620" width="160" height="48" class="box" stroke="#9333ea"/>
-  <text x="774" y="641" text-anchor="middle" class="box-title">filter_table</text>
-  <text x="774" y="659" text-anchor="middle" class="box-text">LLM + 元数据</text>
-  <rect x="694" y="690" width="160" height="48" class="box" stroke="#9333ea"/>
-  <text x="774" y="711" text-anchor="middle" class="box-title">filter_metric</text>
-  <text x="774" y="729" text-anchor="middle" class="box-text">LLM + 指标上下文</text>
-  <rect x="904" y="622" width="150" height="54" class="box" stroke="#9333ea"/>
-  <text x="979" y="645" text-anchor="middle" class="box-title">generate_sql</text>
-  <text x="979" y="664" text-anchor="middle" class="box-text">Prompt + LLM</text>
-  <rect x="904" y="702" width="150" height="54" class="box" stroke="#9333ea"/>
-  <text x="979" y="725" text-anchor="middle" class="box-title">validate_sql</text>
-  <text x="979" y="744" text-anchor="middle" class="box-text">SQLAlchemy EXPLAIN</text>
-  <rect x="1094" y="622" width="130" height="54" class="box" stroke="#9333ea"/>
-  <text x="1159" y="645" text-anchor="middle" class="box-title">correct_sql</text>
-  <text x="1159" y="664" text-anchor="middle" class="box-text">LLM 纠错</text>
-  <rect x="1094" y="702" width="130" height="54" class="box" stroke="#9333ea"/>
-  <text x="1159" y="725" text-anchor="middle" class="box-title">run_sql</text>
-  <text x="1159" y="744" text-anchor="middle" class="box-text">DW MySQL 执行</text>
-
-  <!-- Data infrastructure layer -->
-  <rect x="24" y="800" width="1232" height="116" class="layer" fill="#f1f5f9" stroke="#475569"/>
-  <text x="48" y="834" class="layer-title">数据与基础设施层</text>
-  <rect x="72" y="858" width="170" height="38" class="box" stroke="#475569"/>
-  <text x="157" y="883" text-anchor="middle" class="box-text">TEI + BGE Embedding</text>
-  <rect x="282" y="858" width="170" height="38" class="box" stroke="#475569"/>
-  <text x="367" y="883" text-anchor="middle" class="box-text">Qdrant 向量库</text>
-  <rect x="492" y="858" width="170" height="38" class="box" stroke="#475569"/>
-  <text x="577" y="883" text-anchor="middle" class="box-text">Elasticsearch + IK</text>
-  <rect x="702" y="858" width="170" height="38" class="box" stroke="#475569"/>
-  <text x="787" y="883" text-anchor="middle" class="box-text">Meta MySQL + ORM</text>
-  <rect x="912" y="858" width="150" height="38" class="box" stroke="#475569"/>
-  <text x="987" y="883" text-anchor="middle" class="box-text">LLM + LangChain</text>
-  <rect x="1092" y="858" width="130" height="38" class="box" stroke="#475569"/>
-  <text x="1157" y="883" text-anchor="middle" class="box-text">DW MySQL 数仓</text>
-
-  <!-- User/API arrows -->
-  <path class="arrow-blue" d="M 522 150 L 590 150"/>
-  <path class="arrow-blue" d="M 695 178 L 695 282"/>
-  <path class="arrow-green" d="M 288 307 L 350 307"/>
-  <path class="arrow-green" d="M 560 307 L 622 307"/>
-  <path class="arrow-green" d="M 852 307 L 914 307"/>
-  <path class="arrow-green arrow-dash" d="M 1029 282 C 1110 238 1090 184 993 178"/>
-  <text x="1106" y="214" class="hint">SSE 实时返回</text>
-
-  <!-- Metadata build arrows -->
-  <path class="arrow-orange" d="M 256 463 L 306 463"/>
-  <path class="arrow-orange" d="M 526 463 L 576 463"/>
-  <path class="arrow-orange" d="M 816 448 L 866 438"/>
-  <path class="arrow-orange" d="M 816 463 L 1046 438"/>
-  <path class="arrow-orange" d="M 816 478 L 956 495"/>
-
-  <!-- Agent flow arrows -->
-  <path class="arrow-blue" d="M 1144 307 C 1230 350 1230 470 1230 552"/>
-  <text x="1128" y="546" class="hint">启动 graph.astream</text>
-  <path class="arrow-blue" d="M 210 649 C 230 624 236 628 256 628"/>
-  <path class="arrow-blue" d="M 210 649 L 256 688"/>
-  <path class="arrow-blue" d="M 210 649 C 230 720 236 748 256 748"/>
-  <path class="arrow-blue" d="M 416 628 C 438 642 448 660 470 677"/>
-  <path class="arrow-blue" d="M 416 688 L 470 677"/>
-  <path class="arrow-blue" d="M 416 748 C 438 720 448 694 470 677"/>
-  <path class="arrow-blue" d="M 640 677 C 664 650 674 644 694 644"/>
-  <path class="arrow-blue" d="M 640 677 C 664 704 674 714 694 714"/>
-  <path class="arrow-blue" d="M 854 644 C 876 644 884 644 904 649"/>
-  <path class="arrow-blue" d="M 854 714 C 876 704 884 688 904 649"/>
-  <path class="arrow-blue" d="M 979 676 L 979 702"/>
-  <path class="arrow-blue" d="M 1054 729 L 1094 729"/>
-  <path class="arrow-blue arrow-dash" d="M 1054 729 C 1080 700 1080 650 1094 649"/>
-  <path class="arrow-blue" d="M 1159 676 L 1159 702"/>
-
-  <!-- Infrastructure dependency arrows -->
-  <path class="arrow-slate arrow-dash" d="M 336 604 C 360 710 362 790 367 858"/>
-  <path class="arrow-slate arrow-dash" d="M 336 664 C 430 720 525 790 577 858"/>
-  <path class="arrow-slate arrow-dash" d="M 336 724 C 350 780 360 820 367 858"/>
-  <path class="arrow-slate arrow-dash" d="M 774 738 C 782 790 785 830 787 858"/>
-  <path class="arrow-slate arrow-dash" d="M 979 622 C 982 735 985 805 987 858"/>
-  <path class="arrow-slate arrow-dash" d="M 1159 756 C 1158 805 1157 835 1157 858"/>
-
-  <text x="58" y="538" class="small">构建链路：从教学数仓读取表结构和值域，根据配置写入 Meta MySQL、Qdrant 和 Elasticsearch</text>
-  <text x="58" y="790" class="small">查询链路：Jieba 先抽取关键词；LangChain/LLM 扩展检索词和生成 SQL；SQLAlchemy 校验执行；自定义 stream 事件推给 SSE</text>
-  <text x="58" y="934" class="small">工程依赖：后端用 uv 管理 Python 环境，前端用 pnpm 管理依赖，基础服务可通过 Docker Compose 启动</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1456" height="1034" viewBox="0 0 1456 1034" xmlns:c2pa="http://c2pa.org/manifest">
+<defs>
+<marker id="ah-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 1 L 9 5 L 0 9 z" fill="#2563eb"/></marker>
+<marker id="ah-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 1 L 9 5 L 0 9 z" fill="#16a34a"/></marker>
+<marker id="ah-slate" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 1 L 9 5 L 0 9 z" fill="#64748b"/></marker>
+<marker id="ah-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 1 L 9 5 L 0 9 z" fill="#ea580c"/></marker>
+<marker id="ah-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 1 L 9 5 L 0 9 z" fill="#e11d48"/></marker>
+<filter id="sh" x="-10%" y="-20%" width="120%" height="150%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.10"/></filter>
+<style>
+  text { font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif; }
+  .title { font-size: 28px; font-weight: 700; fill: #0f172a; }
+  .subtitle { font-size: 14px; fill: #475569; }
+  .tab-t { font-size: 15px; font-weight: 700; fill: #ffffff; letter-spacing: 1px; }
+  .nt { font-size: 15px; font-weight: 700; fill: #0f172a; }
+  .ns { font-size: 12px; fill: #475569; }
+  .stage { font-size: 12.5px; font-weight: 700; fill: #6b21a8; }
+  .lbl { font-size: 11.5px; font-weight: 600; }
+  .note { font-size: 11.5px; fill: #475569; }
+  .pill-t { font-size: 11px; font-weight: 700; fill: #475569; }
+  .leg { font-size: 12.5px; fill: #334155; }
+  .box { fill: #ffffff; stroke-width: 1.6; filter: url(#sh); }
+  .support { fill: #f8fafc; stroke-dasharray: 5 4; }
+  .ln { fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .dash { stroke-dasharray: 6 5; }
+</style>
+</defs>
+<rect width="1456" height="1034" fill="#f8fafc"/>
+<text class="title" x="728.0" y="42" text-anchor="middle">智能问数 Agent 系统架构</text>
+<text class="subtitle" x="728.0" y="68" text-anchor="middle">离线构建元数据知识库　·　在线用 LangGraph 编排：召回 → 过滤 → SQL 生成 / 校验 / 修正 → 执行　·　SSE 流式返回</text>
+<rect x="28" y="88" width="1400" height="100" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<path d="M 64 88 H 44 A 16 16 0 0 0 28 104 V 172 A 16 16 0 0 0 44 188 H 64 Z" fill="#1d4ed8"/>
+<text class="tab-t" transform="translate(47.0,138.0) rotate(-90)" text-anchor="middle" dy="5">客户端</text>
+<rect class="box" x="86" y="112" width="250" height="52" rx="9" stroke="#2563eb"/>
+<text class="nt" x="211.0" y="135.0" text-anchor="middle">React + Vite 前端</text>
+<text class="ns" x="211.0" y="154.0" text-anchor="middle">Tailwind CSS · fetch + SSE 消费</text>
+<rect class="box" x="376" y="112" width="240" height="52" rx="9" stroke="#2563eb"/>
+<text class="nt" x="496.0" y="135.0" text-anchor="middle">发起查询</text>
+<text class="ns" x="496.0" y="154.0" text-anchor="middle">POST /api/query</text>
+<rect class="box" x="686" y="112" width="240" height="52" rx="9" stroke="#2563eb"/>
+<text class="nt" x="806.0" y="135.0" text-anchor="middle">SSE 流式展示</text>
+<text class="ns" x="806.0" y="154.0" text-anchor="middle">progress / result / error</text>
+<path class="ln" d="M 336 138 H 376" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<rect x="28" y="232" width="1400" height="100" rx="16" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<path d="M 64 232 H 44 A 16 16 0 0 0 28 248 V 316 A 16 16 0 0 0 44 332 H 64 Z" fill="#15803d"/>
+<text class="tab-t" transform="translate(47.0,282.0) rotate(-90)" text-anchor="middle" dy="5">API 服务层</text>
+<rect class="box" x="86" y="256" width="220" height="52" rx="9" stroke="#16a34a"/>
+<text class="nt" x="196.0" y="279.0" text-anchor="middle">QueryService</text>
+<text class="ns" x="196.0" y="298.0" text-anchor="middle">graph.astream → SSE data</text>
+<rect class="box" x="376" y="256" width="240" height="52" rx="9" stroke="#16a34a"/>
+<text class="nt" x="496.0" y="279.0" text-anchor="middle">query_router.py</text>
+<text class="ns" x="496.0" y="298.0" text-anchor="middle">Pydantic + StreamingResponse</text>
+<rect class="box support" x="686" y="256" width="220" height="52" rx="9" stroke="#16a34a"/>
+<text class="nt" x="796.0" y="279.0" text-anchor="middle">dependencies.py</text>
+<text class="ns" x="796.0" y="298.0" text-anchor="middle">Repository / Client 注入</text>
+<rect class="box support" x="946" y="256" width="220" height="52" rx="9" stroke="#16a34a"/>
+<text class="nt" x="1056.0" y="279.0" text-anchor="middle">main.py · lifespan</text>
+<text class="ns" x="1056.0" y="298.0" text-anchor="middle">FastAPI 应用生命周期</text>
+<rect class="box support" x="1206" y="256" width="188" height="52" rx="9" stroke="#16a34a"/>
+<text class="nt" x="1300.0" y="279.0" text-anchor="middle">链路追踪</text>
+<text class="ns" x="1300.0" y="298.0" text-anchor="middle">request_id · loguru 日志</text>
+<path class="ln" d="M 440 164 V 256" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<text class="lbl" x="450" y="203" text-anchor="start" fill="#2563eb">POST 请求</text>
+<path class="ln dash" d="M 590 256 V 210 H 806 V 164" stroke="#16a34a" marker-end="url(#ah-green)" />
+<text class="lbl" x="818" y="204" text-anchor="start" fill="#15803d">流式返回</text>
+<path class="ln" d="M 376 275 H 306" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<text class="lbl" x="341" y="268" text-anchor="middle" fill="#2563eb">调用</text>
+<path class="ln dash" d="M 306 292 H 376" stroke="#16a34a" marker-end="url(#ah-green)" />
+<text class="lbl" x="341" y="306" text-anchor="middle" fill="#15803d">SSE data</text>
+<path class="ln dash" d="M 686 282 H 616" stroke="#64748b" marker-end="url(#ah-slate)" />
+<text class="lbl" x="651" y="275" text-anchor="middle" fill="#475569">注入</text>
+<rect x="28" y="378" width="1400" height="300" rx="16" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+<path d="M 64 378 H 44 A 16 16 0 0 0 28 394 V 662 A 16 16 0 0 0 44 678 H 64 Z" fill="#7e22ce"/>
+<text class="tab-t" transform="translate(47.0,528.0) rotate(-90)" text-anchor="middle" dy="5">LangGraph 问数 Agent</text>
+<circle cx="94" cy="434" r="8.5" fill="#9333ea"/>
+<text x="94" y="438" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">1</text>
+<text class="stage" x="108" y="438">关键词抽取</text>
+<rect x="268" y="420" width="168" height="222" rx="12" fill="#ffffff" fill-opacity="0.55" stroke="#9333ea" stroke-width="1.3" stroke-dasharray="5 4"/>
+<circle cx="288" cy="434" r="8.5" fill="#9333ea"/>
+<text x="288" y="438" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">2</text>
+<text class="stage" x="302" y="438">并行召回</text>
+<circle cx="482" cy="434" r="8.5" fill="#9333ea"/>
+<text x="482" y="438" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">3</text>
+<text class="stage" x="496" y="438">合并</text>
+<rect x="656" y="420" width="168" height="222" rx="12" fill="#ffffff" fill-opacity="0.55" stroke="#9333ea" stroke-width="1.3" stroke-dasharray="5 4"/>
+<circle cx="676" cy="434" r="8.5" fill="#9333ea"/>
+<text x="676" y="438" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">4</text>
+<text class="stage" x="690" y="438">表 / 指标过滤</text>
+<rect x="850" y="420" width="556" height="222" rx="12" fill="#ffffff" fill-opacity="0.55" stroke="#9333ea" stroke-width="1.3" stroke-dasharray="5 4"/>
+<circle cx="870" cy="434" r="8.5" fill="#9333ea"/>
+<text x="870" y="438" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">5</text>
+<text class="stage" x="884" y="438">SQL 生成 · 校验 · 修正 · 执行</text>
+<rect class="box" x="86" y="514" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="158.0" y="537.0" text-anchor="middle">extract_keywords</text>
+<text class="ns" x="158.0" y="556.0" text-anchor="middle">Jieba TF-IDF</text>
+<rect class="box" x="280" y="450" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="352.0" y="473.0" text-anchor="middle">recall_column</text>
+<text class="ns" x="352.0" y="492.0" text-anchor="middle">Qdrant + Embedding</text>
+<rect class="box" x="280" y="514" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="352.0" y="537.0" text-anchor="middle">recall_value</text>
+<text class="ns" x="352.0" y="556.0" text-anchor="middle">ES + IK 分词</text>
+<rect class="box" x="280" y="578" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="352.0" y="601.0" text-anchor="middle">recall_metric</text>
+<text class="ns" x="352.0" y="620.0" text-anchor="middle">Qdrant + 指标</text>
+<rect class="box" x="474" y="514" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="546.0" y="537.0" text-anchor="middle">merge_retrieved</text>
+<text class="ns" x="546.0" y="556.0" text-anchor="middle">合并召回信息</text>
+<rect class="box" x="668" y="482" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="740.0" y="505.0" text-anchor="middle">filter_table</text>
+<text class="ns" x="740.0" y="524.0" text-anchor="middle">LLM + 元数据</text>
+<rect class="box" x="668" y="546" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="740.0" y="569.0" text-anchor="middle">filter_metric</text>
+<text class="ns" x="740.0" y="588.0" text-anchor="middle">LLM + 指标上下文</text>
+<rect class="box" x="862" y="462" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="934.0" y="485.0" text-anchor="middle">generate_sql</text>
+<text class="ns" x="934.0" y="504.0" text-anchor="middle">Prompt + LLM</text>
+<rect class="box" x="1056" y="462" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="1128.0" y="485.0" text-anchor="middle">validate_sql</text>
+<text class="ns" x="1128.0" y="504.0" text-anchor="middle">AST 护栏 + EXPLAIN</text>
+<rect class="box" x="1250" y="462" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="1322.0" y="485.0" text-anchor="middle">run_sql</text>
+<text class="ns" x="1322.0" y="504.0" text-anchor="middle">DW MySQL 执行</text>
+<rect class="box" x="1056" y="556" width="144" height="52" rx="9" stroke="#9333ea"/>
+<text class="nt" x="1128.0" y="579.0" text-anchor="middle">correct_sql</text>
+<text class="ns" x="1128.0" y="598.0" text-anchor="middle">LLM 纠错</text>
+<rect class="box" x="862" y="556" width="144" height="52" rx="9" stroke="#e11d48"/>
+<text class="nt" x="934.0" y="579.0" text-anchor="middle">拒绝执行</text>
+<text class="ns" x="934.0" y="598.0" text-anchor="middle">返回 error 事件</text>
+<text class="note" x="862" y="632">有界闭环：校验 ≤ 3 次 · 修正 ≤ 2 次 · 耗尽即拒绝执行</text>
+<path class="ln" d="M 230 540 C 258 540 258 476 280 476" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 230 540 C 258 540 258 540 280 540" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 230 540 C 258 540 258 604 280 604" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 424 476 C 450 476 450 528 474 528" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 424 540 C 450 540 450 540 474 540" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 424 604 C 450 604 450 552 474 552" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 618 540 C 645 540 645 508 668 508" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 618 540 C 645 540 645 572 668 572" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 812 508 C 838 508 838 480 862 480" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 812 572 C 838 572 838 496 862 496" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 1006 488 H 1056" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<path class="ln" d="M 1200 488 H 1250" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<text class="lbl" x="1225" y="480" text-anchor="middle" fill="#2563eb">通过</text>
+<path class="ln" d="M 1108 514 V 556" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<text class="lbl" x="1100" y="540" text-anchor="end" fill="#2563eb">不通过</text>
+<path class="ln" d="M 1148 556 V 514" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<text class="lbl" x="1156" y="540" text-anchor="start" fill="#2563eb">回到校验</text>
+<path class="ln dash" d="M 1056 582 H 1006" stroke="#e11d48" marker-end="url(#ah-red)" />
+<text class="lbl" x="1031" y="574" text-anchor="middle" fill="#be123c">耗尽</text>
+<path class="ln" d="M 215 308 V 514" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<text class="lbl" x="207" y="352" text-anchor="end" fill="#2563eb">启动 graph.astream</text>
+<path class="ln dash" d="M 250 378 V 308" stroke="#16a34a" marker-end="url(#ah-green)" />
+<text class="lbl" x="258" y="352" text-anchor="start" fill="#15803d">stream 事件</text>
+<text class="note" x="280" y="404">召回各路带超时与部分失败状态：区分「关键证据缺失 → 拒答」与「可降级故障 → 继续」</text>
+<rect x="28" y="718" width="1400" height="100" rx="16" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<path d="M 64 718 H 44 A 16 16 0 0 0 28 734 V 802 A 16 16 0 0 0 44 818 H 64 Z" fill="#475569"/>
+<text class="tab-t" transform="translate(47.0,768.0) rotate(-90)" text-anchor="middle" dy="5">存储与模型</text>
+<rect x="74" y="730" width="750" height="76" rx="12" fill="#ffffff" fill-opacity="0.55" stroke="#64748b" stroke-width="1.3" stroke-dasharray="5 4"/>
+<rect x="850" y="730" width="556" height="76" rx="12" fill="#ffffff" fill-opacity="0.55" stroke="#64748b" stroke-width="1.3" stroke-dasharray="5 4"/>
+<rect x="396.0" y="721" width="106.0" height="18" rx="9" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text class="pill-t" x="449" y="734" text-anchor="middle">检索与元数据存储</text>
+<rect x="1139.5" y="721" width="73.0" height="18" rx="9" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+<text class="pill-t" x="1176" y="734" text-anchor="middle">模型与数仓</text>
+<rect class="box" x="86" y="742" width="144" height="52" rx="9" stroke="#64748b"/>
+<text class="nt" x="158.0" y="765.0" text-anchor="middle">TEI + BGE</text>
+<text class="ns" x="158.0" y="784.0" text-anchor="middle">Embedding 服务</text>
+<rect class="box" x="280" y="742" width="144" height="52" rx="9" stroke="#64748b"/>
+<text class="nt" x="352.0" y="765.0" text-anchor="middle">Qdrant</text>
+<text class="ns" x="352.0" y="784.0" text-anchor="middle">向量库</text>
+<rect class="box" x="474" y="742" width="144" height="52" rx="9" stroke="#64748b"/>
+<text class="nt" x="546.0" y="765.0" text-anchor="middle">Elasticsearch</text>
+<text class="ns" x="546.0" y="784.0" text-anchor="middle">IK 分词索引</text>
+<rect class="box" x="668" y="742" width="144" height="52" rx="9" stroke="#64748b"/>
+<text class="nt" x="740.0" y="765.0" text-anchor="middle">Meta MySQL</text>
+<text class="ns" x="740.0" y="784.0" text-anchor="middle">表 / 字段 / 指标</text>
+<rect class="box" x="862" y="742" width="338" height="52" rx="9" stroke="#64748b"/>
+<text class="nt" x="1031.0" y="765.0" text-anchor="middle">LLM + LangChain</text>
+<text class="ns" x="1031.0" y="784.0" text-anchor="middle">过滤 · 生成 · 纠错</text>
+<rect class="box" x="1250" y="742" width="144" height="52" rx="9" stroke="#64748b"/>
+<text class="nt" x="1322.0" y="765.0" text-anchor="middle">DW MySQL 数仓</text>
+<text class="ns" x="1322.0" y="784.0" text-anchor="middle">fact / dim 业务表</text>
+<path class="ln dash" d="M 352 642 L 158 742" stroke="#64748b" marker-end="url(#ah-slate)" />
+<path class="ln dash" d="M 352 642 L 352 742" stroke="#64748b" marker-end="url(#ah-slate)" />
+<path class="ln dash" d="M 352 642 L 546 742" stroke="#64748b" marker-end="url(#ah-slate)" />
+<path class="ln dash" d="M 740 642 V 742" stroke="#64748b" marker-end="url(#ah-slate)" />
+<path class="ln dash" d="M 740 642 L 930 742" stroke="#64748b" marker-end="url(#ah-slate)" />
+<path class="ln dash" d="M 1031 642 V 742" stroke="#64748b" marker-end="url(#ah-slate)" />
+<path class="ln dash" d="M 1322 642 V 742" stroke="#64748b" marker-end="url(#ah-slate)" />
+<rect x="28" y="856" width="1400" height="112" rx="16" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+<path d="M 64 856 H 44 A 16 16 0 0 0 28 872 V 952 A 16 16 0 0 0 44 968 H 64 Z" fill="#c2410c"/>
+<text class="tab-t" transform="translate(47.0,912.0) rotate(-90)" text-anchor="middle" dy="5">离线构建</text>
+<rect class="box" x="86" y="886" width="144" height="52" rx="9" stroke="#ea580c"/>
+<text class="nt" x="158.0" y="909.0" text-anchor="middle">meta_config.yaml</text>
+<text class="ns" x="158.0" y="928.0" text-anchor="middle">字段 · 指标 · 同步配置</text>
+<rect class="box" x="280" y="886" width="532" height="52" rx="9" stroke="#ea580c"/>
+<text class="nt" x="546.0" y="909.0" text-anchor="middle">MetaKnowledgeService</text>
+<text class="ns" x="546.0" y="928.0" text-anchor="middle">SQLAlchemy + Repository · 按配置同步到三类存储</text>
+<path class="ln" d="M 230 912 H 280" stroke="#ea580c" marker-end="url(#ah-orange)" />
+<path class="ln" d="M 352 886 V 794" stroke="#ea580c" marker-end="url(#ah-orange)" />
+<path class="ln" d="M 546 886 V 794" stroke="#ea580c" marker-end="url(#ah-orange)" />
+<path class="ln" d="M 740 886 V 794" stroke="#ea580c" marker-end="url(#ah-orange)" />
+<text class="lbl" x="1070" y="904" text-anchor="middle" fill="#c2410c">读取 fact / dim 表结构与值域</text>
+<path class="ln" d="M 1322 794 V 912 H 812" stroke="#ea580c" marker-end="url(#ah-orange)" />
+<path class="ln" d="M 86 996 h 34" stroke="#2563eb" marker-end="url(#ah-blue)" />
+<text class="leg" x="130" y="1000">主调用流</text>
+<path class="ln dash" d="M 214.0 996 h 34" stroke="#16a34a" marker-end="url(#ah-green)" />
+<text class="leg" x="258.0" y="1000">流式事件返回</text>
+<path class="ln dash" d="M 367.0 996 h 34" stroke="#64748b" marker-end="url(#ah-slate)" />
+<text class="leg" x="411.0" y="1000">在线读取依赖</text>
+<path class="ln" d="M 520.0 996 h 34" stroke="#ea580c" marker-end="url(#ah-orange)" />
+<text class="leg" x="564.0" y="1000">离线构建（读取 / 写入）</text>
+<path class="ln dash" d="M 733.5 996 h 34" stroke="#e11d48" marker-end="url(#ah-red)" />
+<text class="leg" x="777.5" y="1000">失败 / 拒绝</text>
+<text class="leg" x="1428" y="1000" text-anchor="end">工程化：uv 管理 Python · pnpm 管理前端 · Docker Compose 启动基础服务</text>
+<metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo3Y2JhY2M3ZC0xZjU4LTRmOWQtYTk1Yy1iZjg2MWU4NmRiM2EAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaL9+ump++sYIs4mTOO+2mzIAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDphMDY2MWM0Yi1kY2U2LTRhZjItODFhOS1kY2ZjNGIzZTdlMWNscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNo9RfYYl5/Rx3tC4yx6IFPowAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFgg8LzPzy/Gjj+h4bQNer/JJz8NwRyne27SL9YsthuuXwqkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaLUByu9TQFZDTva8H1UVWNcAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIH40+hDzuNB0vfudMrLq4qyz1U8enPWBaoecVPuR1sAQZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GUm/Zmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjdjYmFjYzdkLTFmNTgtNGY5ZC1hOTVjLWJmODYxZTg2ZGIzYS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjM2NzZkMjg5LTljYjAtNDQwMC05YTFlLTI5ZjgzMTE0NDQzMnJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCDwvM/PL8aOP6HhtA16v8knPw3BHKd7btIv1iy2G65fCqJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggx8y1IusXWauGUbSIfgxXbBTbnZAlEHFRMgNPriwPh7SiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFgg6+aMoH240wTCxAAGRpVp4YlsxU+kFWQRylms8SXUCwl0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQHBFvGDPxjWSw7x6LCK9MkCkp8rVLs/m834yH2XC+18gp26mGL453e+xoQXKHRYfeQidEPl1YSS3bQjOQcDTiIk=</c2pa:manifest></metadata></svg>

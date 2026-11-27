@@ -74,6 +74,10 @@ docker/volumes/
 /reports/
 /artifacts/
 
+# Local AI guidance
+AGENTS.md
+/docs/agents/
+
 # Local research, scraping and worktree state
 .scratch/
 .firecrawl/
