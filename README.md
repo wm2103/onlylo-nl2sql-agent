@@ -248,7 +248,6 @@ VITE_DEV_PROXY_TARGET=http://127.0.0.1:8000
 
 - [评测说明](eval/README.md)：评测数据、运行方式和结果解释。
 - [文档导航](docs/index.md)：架构图、SQL 行范围契约与测试入口。
-- [中文架构图备用草稿](docs/architecture/onlylo-nl2sql-agent-architecture-cn-draft-v2.html)：业务流程草稿，不作为当前正式架构图。
 
 <a id="source-and-license"></a>
 

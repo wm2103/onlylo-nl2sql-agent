@@ -55,5 +55,5 @@ recall:
 sql_execution:
   max_rows: 1000
   row_filters: {}
-  # Set only after verifying column types in the deployment; see docs/sql-row-scope.md.
+  # Set only after verifying column types in the deployment; see docs/contracts/sql-row-scope.md.
   row_scope_column_types: {}
